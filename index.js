@@ -4,8 +4,21 @@ axios
     "http://mod-g-loadb-1278vrytsr6cr-550194923.us-east-1.elb.amazonaws.com/marketplace/"
   )
   .then(function(response) {
-    const services = getServices(response.data);
-    console.log(services);
+	const services = getServices(response.data);
+	
+	const roamicorn = getTeamServices(services, "Roamicorn");
+	const explorers = getTeamServices(services, "Explorers");
+	const dolbyDigital = getTeamServices(services, "Dolby Digital");
+	const cunningStunts = getTeamServices(services, "Cunning Stunts");
+	const serviants = getTeamServices(services, "Serviants");
+	const rainbowPoop = getTeamServices(services, "rainbow-poop");
+
+    console.log('roamicorn', roamicorn);
+    console.log("explorers", explorers);
+    console.log("dolbyDigital", dolbyDigital);
+    console.log("cunningStunts", cunningStunts);
+    console.log("serviants", serviants);
+    console.log("rainbowPoop", rainbowPoop);
   });
 
 const getWithOutTags = data => {
@@ -34,8 +47,13 @@ const getServices = html => {
       teamName: getWithOutTags(data[1]),
       serviceType: getWithOutTags(data[2]),
       address: getWithOutTags(data[3]),
-      score1: getWithOutTags(data[4]),
-      score2: getWithOutTags(data[5])
+      latency: getWithOutTags(data[4]),
+      successRate: getWithOutTags(data[5])
     };
   });
 };
+
+const getTeamServices = (services, teamName) => {
+	return services
+		.filter(s => s.teamName === teamName);
+}
