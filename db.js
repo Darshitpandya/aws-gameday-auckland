@@ -6,7 +6,7 @@ var myCredentials = new AWS.CognitoIdentityCredentials();
 var myConfig = new AWS.Config({
   credentials: myCredentials, region: 'us-east-1'
 });
-myConfig.update({region: 'us-east-1'});
+AWS.config.update(myConfig);
 
 
 AWS.config.getCredentials(function(err) {
